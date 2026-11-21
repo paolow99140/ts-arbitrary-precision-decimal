@@ -44,3 +44,10 @@ The pure functions `fromString`, `toString`, `fromNumber`, `toNumber`, `add`, `s
 ## Edge cases
 
 Division may not terminate in decimal (for example, `1 / 3`). The `div` method requires a precision argument (default 20) and rounds half up. Division by zero throws an `Error`. The internal representation normalizes away leading and trailing zeros, so `Decimal.fromString("0.10")` and `Decimal.fromString("0.1")` compare equal and print as `"0.1"`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
